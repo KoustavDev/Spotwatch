@@ -33,7 +33,7 @@ This project is a stopwatch built with modern web technologies:
 1. Clone this repository:
 
    ```bash
-   git clone https://github.com/KoustavDev/TODO-list
+   git clone https://github.com/KoustavDev/Spotwatch
    ```
 
 2. Install dependencies:

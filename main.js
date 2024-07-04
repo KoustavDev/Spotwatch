@@ -1,17 +1,19 @@
-import './main.css';
-
 const time = document.querySelector("#time");
 const go = document.getElementById("start");
 const pause = document.getElementById("stop");
 const reset = document.getElementById("reset");
+const lap = document.getElementById("lap");
+const section = document.querySelector("section");
 
 let id;
 let hour = 0;
 let min = 0;
 let sec = 0;
+let lapNumber = 0;
 
 go.addEventListener("click", start);
 pause.addEventListener("click", stop);
+lap.addEventListener("click", AddData);
 reset.addEventListener("click", () => {
     stop();
     hour = 0;
@@ -19,6 +21,8 @@ reset.addEventListener("click", () => {
     sec = 0;
     time.innerText = `00 : 00 : 00`;
 });
+
+document.addEventListener("DOMContentLoaded" , loadData)
 
 function start() {
     go.disabled = true;
@@ -44,48 +48,28 @@ function stop() {
     clearInterval(id);
     go.disabled = false;
 }
-
-
-const lap = document.getElementById("lap");
-const section = document.querySelector("section");
-
-lap.addEventListener("click", AddData);
-
-document.addEventListener("keydown", (e) => {
-    if (e.key === 'Enter') {
-        AddData();
-    }
-});
-
 function AddData() {
-    let txt = input.value.trim();
-    console.log(txt);
-    if (txt === ''){
-        alert("Add text");
-        return;
-    }
-    let data = AddHTML(txt);
-    section.prepend(data);
-    input.value = '';
+    let time = `${hour} : ${min} : ${sec}`;
+    let text = `Lap no.${++lapNumber}`;
+    AddHTML(time,text);
 }
 
-function AddHTML(txt) {
+function AddHTML(time,text) {
     let data = document.createElement('div');
     data.innerHTML = `
         <div class="list flex justify-between text-[25px] rounded-2xl px-1 max-h-[70px]">
-            <div class="form-control">
-                <label class="cursor-pointer label flex gap-6">
-                    <input type="checkbox" id="check" class="checkbox checkbox-success self-center" />
-                    <span class="data text-lg">${txt}</span>
-                </label>
+            <div class="flex items-center gap-3 h-[40px]">
+                <span id = "timeData">${time}</span>
+                <span class="data text-lg" id = "text">${text}</span>
             </div>
             <div class="flex items-center gap-2">
                 <button class="edit btn btn-sm btn-outline btn-info">Edit</button>
                 <i class="delete fa-regular fa-circle-xmark self-center cursor-pointer hover:text-red-700"></i>
             </div>
         </div>`;
-    
-    
+
+    section.append(data);
+
     data.querySelector(".delete").addEventListener("click", () => {
         data.remove();
     });
@@ -95,17 +79,38 @@ function AddHTML(txt) {
         const textSpan = data.querySelector(".data");
         if (isEditing) {
             textSpan.contentEditable = "false";
-            data.querySelector(".edit").setAttribute("class","edit btn btn-sm btn-outline btn-info");
+            data.querySelector(".edit").setAttribute("class", "edit btn btn-sm btn-outline btn-info");
             data.querySelector(".edit").textContent = "Edit";
         } else {
             textSpan.contentEditable = "true";
             textSpan.focus();
             // Select all text inside the span
             document.execCommand('selectAll', false, null);
-            data.querySelector(".edit").setAttribute("class","edit btn btn-sm btn-outline btn-success");
+            data.querySelector(".edit").setAttribute("class", "edit btn btn-sm btn-outline btn-success");
             data.querySelector(".edit").textContent = "Save";
         }
         isEditing = !isEditing;
+        saveData();
     });
-    return data;
+    saveData();
+}
+
+function saveData(){
+    const dataElement = document.querySelectorAll(".list");
+    let save = [];
+    dataElement.forEach((item)=>{
+        let timeData = item.querySelector("#timeData").textContent;
+        let text = item.querySelector("#text").textContent;
+        save.push({timeData , text});
+        localStorage.setItem("stopwatch" , JSON.stringify(save));
+    })
+}
+
+function loadData() {
+    let data = JSON.parse(localStorage.getItem("stopwatch"));
+    if (data) {
+        data.forEach((item)=>{
+            AddHTML(item.timeData , item.text);
+        })
+    }
 }

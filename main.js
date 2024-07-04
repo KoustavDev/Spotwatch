@@ -72,6 +72,7 @@ function AddHTML(time,text) {
 
     data.querySelector(".delete").addEventListener("click", () => {
         data.remove();
+        saveData();
     });
 
     let isEditing = false;

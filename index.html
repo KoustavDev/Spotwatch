@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="main.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <title>Vite App</title>
+</head>
+
+<body class="h-svh flex justify-center items-center">
+
+    <!-- Heading -->
+    
+    <div class="card w-[550px] h-[460px] flex flex-col p-6 gap-2">
+      <div class="text-center">
+        <h1 class="text-2xl">Stopwatch</h1>
+      </div>
+
+      <!-- Time section -->
+
+      <div class="flex flex-col justify-center items-center gap-4">
+        
+        <h1 class="text-4xl" id="time">00 : 00 : 00</h1>
+        <div class="flex gap-3">
+          <button class="btn btn-sm btn-success" id="start">Start</button>
+          <button class="btn btn-sm btn-warning" id="stop">Pause</button>
+          <button class="btn btn-sm btn-error" id="reset">Reset</button>
+          <button class="btn btn-sm btn-info" id="lap">Lap</button>
+        </div>
+      </div>
+
+      <!-- List section -->
+
+      <div class="px-3 pb-2">
+        <h3>Laps :</h3>
+        <section class="h-[234px] flex flex-col gap-3 overflow-auto custom-scrollbar">
+          
+        <!-- <div class="flex items-center gap-2"></div> -->
+        </section>
+      </div>
+    </div>
+  <script type="module" src="/Stopwatch.js"></script>
+</body>
+
+</html>

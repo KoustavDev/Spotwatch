@@ -81,4 +81,3 @@ Feel free to fork this repository and submit pull requests with your enhancement
     * Tailwind CSS: [https://tailwindcss.com/docs/installation](https://tailwindcss.com/docs/installation)
     * Vite: [https://vitejs.dev/guide/](https://vitejs.dev/guide/)
     * Daisy UI: [https://daisyui.com/](https://daisyui.com/)
-    * https://creativeconor.com/products/call-of-duty-advanced-warfare/
